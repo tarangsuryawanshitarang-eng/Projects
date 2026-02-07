@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A beautiful two-player chess game built with HTML, CSS, and JavaScript. Play chess with a friend on the same device!"
+    />
+    <title>Chess Master - Two Player Chess Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="game-header">
+        <h1 class="logo">
+          <span class="logo-icon">♔</span>
+          <span class="logo-text">Chess Master</span>
+        </h1>
+      </header>
+
+      <!-- Main Game Area -->
+      <main class="game-container">
+        <!-- Black's Captured Pieces -->
+        <div class="captured-panel captured-black">
+          <div class="captured-header">
+            <span class="captured-icon">♚</span>
+            <span>Captured by White</span>
+          </div>
+          <div id="captured-black" class="captured-pieces"></div>
+          <div id="advantage-white" class="material-advantage"></div>
+        </div>
+
+        <!-- Game Board Area -->
+        <div class="board-area">
+          <div class="board-wrapper">
+            <!-- Column Labels Top -->
+            <div class="column-labels">
+              <span>a</span><span>b</span><span>c</span><span>d</span>
+              <span>e</span><span>f</span><span>g</span><span>h</span>
+            </div>
+
+            <div class="board-with-rows">
+              <!-- Row Labels Left -->
+              <div class="row-labels">
+                <span>8</span><span>7</span><span>6</span><span>5</span>
+                <span>4</span><span>3</span><span>2</span><span>1</span>
+              </div>
+
+              <!-- Chess Board -->
+              <div id="chessboard" class="chessboard"></div>
+
+              <!-- Row Labels Right -->
+              <div class="row-labels">
+                <span>8</span><span>7</span><span>6</span><span>5</span>
+                <span>4</span><span>3</span><span>2</span><span>1</span>
+              </div>
+            </div>
+
+            <!-- Column Labels Bottom -->
+            <div class="column-labels">
+              <span>a</span><span>b</span><span>c</span><span>d</span>
+              <span>e</span><span>f</span><span>g</span><span>h</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Panel -->
+        <div class="side-panel">
+          <!-- Turn Indicator -->
+          <div class="status-panel">
+            <div id="turn-indicator" class="turn-indicator white-turn">
+              <span class="turn-piece">♔</span>
+              <span class="turn-text">White's Turn</span>
+            </div>
+            <div id="game-status" class="game-status"></div>
+          </div>
+
+          <!-- Move History -->
+          <div class="history-panel">
+            <div class="history-header">
+              <span class="history-icon">📜</span>
+              <span>Move History</span>
+            </div>
+            <div id="move-history" class="move-history"></div>
+          </div>
+
+          <!-- Control Buttons -->
+          <div class="control-panel">
+            <button id="btn-new-game" class="btn btn-primary">
+              <span class="btn-icon">🔄</span>
+              New Game
+            </button>
+            <button id="btn-undo" class="btn btn-secondary">
+              <span class="btn-icon">↩️</span>
+              Undo Move
+            </button>
+          </div>
+        </div>
+
+        <!-- White's Captured Pieces -->
+        <div class="captured-panel captured-white">
+          <div class="captured-header">
+            <span class="captured-icon">♔</span>
+            <span>Captured by Black</span>
+          </div>
+          <div id="captured-white" class="captured-pieces"></div>
+          <div id="advantage-black" class="material-advantage"></div>
+        </div>
+      </main>
+
+      <!-- Game Over Modal -->
+      <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-icon" id="modal-icon">♔</div>
+          <h2 id="modal-title">Game Over</h2>
+          <p id="modal-message">Checkmate! White wins!</p>
+          <button id="btn-play-again" class="btn btn-primary btn-large">
+            <span class="btn-icon">🎮</span>
+            Play Again
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotion Modal -->
+      <div id="promotion-modal" class="modal hidden">
+        <div class="modal-content promotion-content">
+          <h2>Choose Promotion</h2>
+          <p>Select a piece to promote your pawn:</p>
+          <div class="promotion-options" id="promotion-options">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Invalid Move Toast -->
+      <div id="invalid-move-toast" class="toast hidden">
+        <span class="toast-icon">⚠️</span>
+        <span id="toast-message">Invalid move!</span>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

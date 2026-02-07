@@ -1,0 +1,230 @@
+/* === CSS Reset / Normalize === */
+
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+  2. Remove default margin and set sensible defaults
+*/
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -moz-tab-size: 4;
+    tab-size: 4;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--text-dark);
+    background-color: var(--bg);
+    line-height: var(--line-height-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+}
+
+/*
+  3. Allow percentage-based heights in the application
+*/
+html,
+body {
+    height: 100%;
+}
+
+/*
+  4. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/*
+  5. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+/*
+  6. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/*
+  7. Headings
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+/*
+  8. Links
+*/
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/*
+  9. Lists
+*/
+ul,
+ol {
+    list-style: none;
+}
+
+/*
+  10. Tables
+*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*
+  11. Buttons
+*/
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/*
+  12. Form elements
+*/
+input,
+textarea,
+select {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+}
+
+/*
+  13. Create a root stacking context
+*/
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/*
+  14. Scrollbar styling (webkit)
+*/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light);
+}
+
+/*
+  15. Selection styling
+*/
+::selection {
+    background-color: var(--primary);
+    color: white;
+}
+
+/*
+  16. Focus visible styling
+*/
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/*
+  17. Reduced motion
+*/
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/*
+  18. Print styles
+*/
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}

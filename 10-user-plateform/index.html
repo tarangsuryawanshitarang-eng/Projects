@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A collection of 10 beautifully designed UI components built with HTML, CSS, and JavaScript. Explore responsive navbars, hero sections, pricing cards, and more!"
+    />
+    <title>10 User Interfaces | HTML, CSS & JavaScript</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="shared/variables.css" />
+    <link rel="stylesheet" href="shared/reset.css" />
+    <link rel="stylesheet" href="shared/shared.css" />
+
+    <style>
+      /* Landing Page Specific Styles */
+      .landing-page {
+        min-height: 100vh;
+        background: var(--bg);
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Animated Background */
+      .bg-gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(79, 70, 229, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(16, 185, 129, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 60%,
+            rgba(245, 158, 11, 0.05) 0%,
+            transparent 40%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .bg-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(rgba(79, 70, 229, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(79, 70, 229, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Header */
+      .landing-header {
+        padding: var(--spacing-8) 0 var(--spacing-4);
+        text-align: center;
+      }
+
+      .landing-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-6);
+      }
+
+      .logo-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--gradient-primary);
+        border-radius: var(--radius-xl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow:
+          var(--shadow-lg),
+          0 0 30px rgba(79, 70, 229, 0.3);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .landing-title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--spacing-4);
+        letter-spacing: -0.03em;
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      .landing-subtitle {
+        font-size: var(--font-size-lg);
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto var(--spacing-8);
+        animation: fadeInUp 0.8s ease 0.2s forwards;
+        opacity: 0;
+      }
+
+      .tech-stack {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-4);
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease 0.4s forwards;
+        opacity: 0;
+      }
+
+      .tech-badge {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        padding: var(--spacing-2) var(--spacing-4);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--text-dark);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-base);
+      }
+
+      .tech-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary);
+      }
+
+      .tech-badge span:first-child {
+        font-size: 1.2em;
+      }
+
+      /* UI Grid */
+      .ui-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: var(--spacing-6);
+        padding: var(--spacing-8) 0 var(--spacing-16);
+      }
+
+      /* UI Card */
+      .ui-card {
+        background: var(--surface);
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border-light);
+        transition: var(--transition-base);
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .ui-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .ui-card:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .ui-card:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .ui-card:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .ui-card:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .ui-card:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+      .ui-card:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .ui-card:nth-child(8) {
+        animation-delay: 0.45s;
+      }
+      .ui-card:nth-child(9) {
+        animation-delay: 0.5s;
+      }
+      .ui-card:nth-child(10) {
+        animation-delay: 0.55s;
+      }
+
+      .ui-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow:
+          var(--shadow-2xl),
+          0 0 40px rgba(79, 70, 229, 0.15);
+        border-color: var(--primary-light);
+      }
+
+      .card-preview {
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-preview-bg {
+        position: absolute;
+        inset: 0;
+        opacity: 0.15;
+        transition: var(--transition-base);
+      }
+
+      .ui-card:hover .card-preview-bg {
+        opacity: 0.25;
+        transform: scale(1.1);
+      }
+
+      .card-icon {
+        font-size: 4rem;
+        z-index: 1;
+        transition: var(--transition-bounce);
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+      }
+
+      .ui-card:hover .card-icon {
+        transform: scale(1.15) rotate(-5deg);
+      }
+
+      .card-number {
+        position: absolute;
+        top: var(--spacing-4);
+        left: var(--spacing-4);
+        width: 36px;
+        height: 36px;
+        background: var(--surface);
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-bold);
+        color: var(--primary);
+        box-shadow: var(--shadow-md);
+        z-index: 2;
+      }
+
+      .card-difficulty {
+        position: absolute;
+        top: var(--spacing-4);
+        right: var(--spacing-4);
+        padding: var(--spacing-1) var(--spacing-3);
+        background: var(--surface);
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        z-index: 2;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .difficulty-beginner {
+        color: var(--secondary);
+      }
+      .difficulty-intermediate {
+        color: var(--accent);
+      }
+      .difficulty-advanced {
+        color: var(--primary);
+      }
+
+      .card-content {
+        padding: var(--spacing-5) var(--spacing-6);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-title {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--text-dark);
+        margin-bottom: var(--spacing-2);
+      }
+
+      .card-description {
+        font-size: var(--font-size-sm);
+        color: var(--text-light);
+        line-height: var(--line-height-relaxed);
+        flex: 1;
+      }
+
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-top: var(--spacing-4);
+      }
+
+      .card-tag {
+        padding: var(--spacing-1) var(--spacing-2);
+        background: var(--border-light);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        color: var(--text-light);
+        transition: var(--transition-fast);
+      }
+
+      .ui-card:hover .card-tag {
+        background: rgba(79, 70, 229, 0.1);
+        color: var(--primary);
+      }
+
+      .card-arrow {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        margin-top: var(--spacing-4);
+        padding-top: var(--spacing-4);
+        border-top: 1px solid var(--border-light);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+        color: var(--primary);
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: var(--transition-base);
+      }
+
+      .ui-card:hover .card-arrow {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .card-arrow svg {
+        transition: var(--transition-base);
+      }
+
+      .ui-card:hover .card-arrow svg {
+        transform: translateX(4px);
+      }
+
+      /* Footer */
+      .landing-footer {
+        text-align: center;
+        padding: var(--spacing-8) 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-text {
+        font-size: var(--font-size-sm);
+        color: var(--text-light);
+      }
+
+      .footer-text a {
+        color: var(--primary);
+        font-weight: var(--font-weight-medium);
+        transition: var(--transition-fast);
+      }
+
+      .footer-text a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-heart {
+        color: var(--error);
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .ui-grid {
+          grid-template-columns: 1fr;
+          padding: var(--spacing-4) 0 var(--spacing-12);
+        }
+
+        .landing-header {
+          padding: var(--spacing-6) 0 var(--spacing-2);
+        }
+
+        .tech-stack {
+          gap: var(--spacing-2);
+        }
+
+        .tech-badge {
+          font-size: var(--font-size-xs);
+          padding: var(--spacing-1) var(--spacing-3);
+        }
+      }
+
+      /* Gradient backgrounds for each card */
+      .gradient-1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      .gradient-2 {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+      .gradient-3 {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+      .gradient-4 {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+      .gradient-5 {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      }
+      .gradient-6 {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      }
+      .gradient-7 {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      }
+      .gradient-8 {
+        background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+      }
+      .gradient-9 {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      }
+      .gradient-10 {
+        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="landing-page">
+      <div class="bg-gradient"></div>
+      <div class="bg-grid"></div>
+
+      <div class="content-wrapper">
+        <div class="container">
+          <!-- Header -->
+          <header class="landing-header">
+            <div class="landing-logo">
+              <div class="logo-icon">🎨</div>
+            </div>
+            <h1 class="landing-title">10 User Interfaces</h1>
+            <p class="landing-subtitle">
+              A collection of beautifully crafted UI components built with
+              modern HTML, CSS & JavaScript. Master front-end fundamentals
+              through hands-on practice.
+            </p>
+            <div class="tech-stack">
+              <div class="tech-badge">
+                <span>📄</span>
+                <span>HTML5</span>
+              </div>
+              <div class="tech-badge">
+                <span>🎨</span>
+                <span>CSS3</span>
+              </div>
+              <div class="tech-badge">
+                <span>⚡</span>
+                <span>JavaScript</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- UI Cards Grid -->
+          <main class="ui-grid" id="ui-grid">
+            <!-- Card 1: Responsive Navbar -->
+            <a href="01-responsive-navbar/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-1"></div>
+                <span class="card-number">01</span>
+                <span class="card-difficulty difficulty-beginner"
+                  >Beginner</span
+                >
+                <span class="card-icon">📌</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Responsive Navbar</h2>
+                <p class="card-description">
+                  Create a sleek navigation bar with mobile hamburger menu,
+                  sticky scroll behavior, and smooth transitions.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Flexbox</span>
+                  <span class="card-tag">Media Queries</span>
+                  <span class="card-tag">Toggle</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 2: Hero Section -->
+            <a href="02-hero-section/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-2"></div>
+                <span class="card-number">02</span>
+                <span class="card-difficulty difficulty-beginner"
+                  >Beginner</span
+                >
+                <span class="card-icon">🖼️</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Hero Section</h2>
+                <p class="card-description">
+                  Build a stunning full-viewport hero with gradient overlays,
+                  animated text, and call-to-action buttons.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Gradients</span>
+                  <span class="card-tag">Animations</span>
+                  <span class="card-tag">CTA</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 3: Pricing Cards -->
+            <a href="03-pricing-cards/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-3"></div>
+                <span class="card-number">03</span>
+                <span class="card-difficulty difficulty-beginner"
+                  >Beginner</span
+                >
+                <span class="card-icon">💰</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Pricing Cards</h2>
+                <p class="card-description">
+                  Design elegant pricing tables with monthly/yearly toggle,
+                  feature lists, and highlighted popular plans.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">CSS Grid</span>
+                  <span class="card-tag">Toggle</span>
+                  <span class="card-tag">Cards</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 4: Image Gallery -->
+            <a href="04-image-gallery/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-4"></div>
+                <span class="card-number">04</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">🖼️</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Image Gallery</h2>
+                <p class="card-description">
+                  Create a filterable image gallery with smooth animations and a
+                  full-screen lightbox modal.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Filtering</span>
+                  <span class="card-tag">Modal</span>
+                  <span class="card-tag">Grid</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 5: Signup Form -->
+            <a href="05-signup-form/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-5"></div>
+                <span class="card-number">05</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">📝</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Signup Form</h2>
+                <p class="card-description">
+                  Build a complete registration form with real-time validation,
+                  password strength meter, and UX feedback.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Validation</span>
+                  <span class="card-tag">Regex</span>
+                  <span class="card-tag">UX</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 6: Dashboard Cards -->
+            <a href="06-dashboard-cards/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-6"></div>
+                <span class="card-number">06</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">📊</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Dashboard Cards</h2>
+                <p class="card-description">
+                  Build an animated dashboard with stat cards, mini charts,
+                  bar graphs, and a responsive sidebar.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Charts</span>
+                  <span class="card-tag">Animation</span>
+                  <span class="card-tag">Layout</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 7: Testimonial Slider -->
+            <a href="07-testimonial-slider/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-7"></div>
+                <span class="card-number">07</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">💬</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Testimonial Slider</h2>
+                <p class="card-description">
+                  Develop an auto-playing carousel with navigation, pagination
+                  dots, and touch swipe support.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Carousel</span>
+                  <span class="card-tag">Animation</span>
+                  <span class="card-tag">Touch</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 8: FAQ Accordion -->
+            <a href="08-accordion-faq/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-8"></div>
+                <span class="card-number">08</span>
+                <span class="card-difficulty difficulty-beginner"
+                  >Beginner</span
+                >
+                <span class="card-icon">❓</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">FAQ Accordion</h2>
+                <p class="card-description">
+                  Build a searchable FAQ with smooth expand/collapse animations,
+                  search filtering, and keyboard navigation.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">classList</span>
+                  <span class="card-tag">Animation</span>
+                  <span class="card-tag">Search</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 9: Todo List App -->
+            <a href="09-todo-list/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-9"></div>
+                <span class="card-number">09</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">✅</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Todo List App</h2>
+                <p class="card-description">
+                  Create a full CRUD application with localStorage persistence,
+                  filtering, progress tracking, and toast notifications.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">CRUD</span>
+                  <span class="card-tag">localStorage</span>
+                  <span class="card-tag">Filtering</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 10: Modal Components -->
+            <a href="10-modal-popup/index.html" class="ui-card">
+              <div class="card-preview">
+                <div class="card-preview-bg gradient-10"></div>
+                <span class="card-number">10</span>
+                <span class="card-difficulty difficulty-intermediate"
+                  >Intermediate</span
+                >
+                <span class="card-icon">🪟</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Modal Components</h2>
+                <p class="card-description">
+                  Build various modal popups including alerts, confirms, forms,
+                  and fullscreen modals with animations.
+                </p>
+                <div class="card-tags">
+                  <span class="card-tag">Modal</span>
+                  <span class="card-tag">A11y</span>
+                  <span class="card-tag">Focus Trap</span>
+                </div>
+                <div class="card-arrow">
+                  <span>View Project</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </main>
+
+          <!-- Footer -->
+          <footer class="landing-footer">
+            <p class="footer-text">
+              Made with <span class="footer-heart">❤️</span> using HTML, CSS &
+              JavaScript
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

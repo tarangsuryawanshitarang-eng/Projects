@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Navigation Bar - A modern navbar with mobile hamburger menu, sticky behavior, and smooth transitions">
+    <title>Responsive Navbar | 10 User Interfaces</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../shared/variables.css">
+    <link rel="stylesheet" href="../shared/reset.css">
+    <link rel="stylesheet" href="../shared/shared.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" aria-label="Main Navigation">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                        <polyline points="2 17 12 22 22 17"/>
+                        <polyline points="2 12 12 17 22 12"/>
+                    </svg>
+                </div>
+                <span class="logo-text">BrandLogo</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right Side Actions -->
+            <div class="nav-actions">
+                <button class="search-btn" id="search-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </button>
+                <a href="#" class="nav-cta">Get Started</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-modal-content">
+            <div class="search-input-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search for anything..." autofocus>
+                <button class="search-close" id="search-close" aria-label="Close search">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="search-hint">Press <kbd>ESC</kbd> to close</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+
+        <!-- Hero Section -->
+        <section id="home" class="section hero-section">
+            <div class="section-content">
+                <span class="badge badge-primary">UI Component #01</span>
+                <h1 class="hero-title">Responsive Navigation Bar</h1>
+                <p class="hero-description">
+                    A modern, fully responsive navigation bar with mobile hamburger menu, 
+                    sticky scroll behavior, animated transitions, and search functionality. 
+                    Try resizing your browser or scrolling to see it in action!
+                </p>
+                <div class="feature-highlights">
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <span>Mobile Responsive</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📌</span>
+                        <span>Sticky on Scroll</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✨</span>
+                        <span>Smooth Animations</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔍</span>
+                        <span>Search Modal</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2 class="section-title">About Us</h2>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Our Mission</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-icon">💡</div>
+                        <h3>Our Vision</h3>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Our Values</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section section-alt">
+            <div class="section-content">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-number">01</div>
+                        <h3>Web Development</h3>
+                        <p>Creating responsive, fast, and beautiful websites using modern technologies and best practices.</p>
+                        <a href="#" class="service-link">Learn More →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">02</div>
+                        <h3>UI/UX Design</h3>
+                        <p>Designing intuitive user interfaces and experiences that delight users and drive engagement.</p>
+                        <a href="#" class="service-link">Learn More →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">03</div>
+                        <h3>Mobile Apps</h3>
+                        <p>Building cross-platform mobile applications that work seamlessly on iOS and Android devices.</p>
+                        <a href="#" class="service-link">Learn More →</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-number">04</div>
+                        <h3>Cloud Solutions</h3>
+                        <p>Deploying scalable cloud infrastructure and services for enterprise-level applications.</p>
+                        <a href="#" class="service-link">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Our Portfolio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item large">
+                        <div class="portfolio-overlay">
+                            <h3>E-Commerce Platform</h3>
+                            <p>Web Development</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-overlay">
+                            <h3>Mobile Banking App</h3>
+                            <p>Mobile Development</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-overlay">
+                            <h3>SaaS Dashboard</h3>
+                            <p>UI/UX Design</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-overlay">
+                            <h3>Brand Identity</h3>
+                            <p>Branding</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item large">
+                        <div class="portfolio-overlay">
+                            <h3>Healthcare Platform</h3>
+                            <p>Full Stack Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section section-alt">
+            <div class="section-content">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Let's work together</h3>
+                        <p>Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>hello@brandlogo.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <span>+1 (555) 123-4567</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>123 Design Street, Creative City</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2025 BrandLogo. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

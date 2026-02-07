@@ -1,0 +1,40 @@
+{
+  "camera": {
+    "index": 0,
+    "width": 640,
+    "height": 480,
+    "fps": 30
+  },
+  "recognition": {
+    "threshold": 0.5,
+    "model": "hog",
+    "frame_skip": 3,
+    "resize_scale": 0.5,
+    "min_face_size": 50
+  },
+  "attendance": {
+    "cooldown_seconds": 30,
+    "check_in_start": "06:00",
+    "check_in_end": "12:00",
+    "check_out_start": "16:00",
+    "check_out_end": "23:00",
+    "late_threshold": "09:30"
+  },
+  "liveness": {
+    "enabled": false,
+    "method": "blink",
+    "blink_count": 2,
+    "timeout": 10
+  },
+  "database": {
+    "path": "data/attendance.db",
+    "backup_enabled": true,
+    "backup_interval_hours": 24
+  },
+  "paths": {
+    "faces_dir": "data/faces",
+    "encodings_file": "data/encodings.pkl",
+    "logs_dir": "logs",
+    "exports_dir": "exports"
+  }
+}

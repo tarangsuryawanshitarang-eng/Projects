@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accordion FAQ - Collapsible FAQ sections with smooth animations and multiple expand options">
+    <title>Accordion FAQ | 10 User Interfaces</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../shared/variables.css">
+    <link rel="stylesheet" href="../shared/reset.css">
+    <link rel="stylesheet" href="../shared/shared.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="faq-page">
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+
+        <!-- Header -->
+        <header class="faq-header">
+            <span class="badge badge-primary">❓ FAQ</span>
+            <h1>Frequently Asked Questions</h1>
+            <p>Everything you need to know about our product. Can't find what you're looking for? Contact our support team.</p>
+            
+            <!-- Search -->
+            <div class="faq-search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="faq-search" placeholder="Search for answers..." autocomplete="off">
+                <button class="search-clear hidden" id="search-clear" aria-label="Clear search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Accordion Controls -->
+        <div class="accordion-controls">
+            <button class="control-btn" id="expand-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+                Expand All
+            </button>
+            <button class="control-btn" id="collapse-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="18 15 12 9 6 15"/>
+                </svg>
+                Collapse All
+            </button>
+        </div>
+
+        <!-- Accordion Sections -->
+        <div class="accordion-container">
+            <!-- General Section -->
+            <section class="accordion-section" data-category="general">
+                <h2 class="section-title">
+                    <span class="section-icon">🏠</span>
+                    General
+                </h2>
+                
+                <div class="accordion-group">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">What is this platform about?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Our platform is a comprehensive solution designed to help businesses streamline their operations, improve customer relationships, and drive growth. From analytics to automation, we provide all the tools you need in one place.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">How do I get started?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Getting started is easy! Simply create an account, complete the onboarding process, and you'll be ready to go in minutes. Our step-by-step wizard will guide you through the initial setup.</p>
+                                <ul>
+                                    <li>Sign up for a free account</li>
+                                    <li>Complete your profile</li>
+                                    <li>Connect your data sources</li>
+                                    <li>Start exploring features</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Is there a free trial available?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Yes! We offer a 14-day free trial with full access to all features. No credit card required. After the trial, you can choose the plan that best fits your needs or continue with our free tier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Billing Section -->
+            <section class="accordion-section" data-category="billing">
+                <h2 class="section-title">
+                    <span class="section-icon">💳</span>
+                    Billing & Pricing
+                </h2>
+                
+                <div class="accordion-group">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">What payment methods do you accept?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for annual plans. All payments are processed securely through Stripe.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Can I cancel my subscription anytime?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Absolutely! You can cancel your subscription at any time with no cancellation fees. Your access will continue until the end of your current billing period. We also offer the option to pause your subscription if you need a temporary break.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Do you offer refunds?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Yes, we offer a 30-day money-back guarantee for all new customers. If you're not satisfied with our service within the first 30 days, contact our support team for a full refund.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="accordion-section" data-category="features">
+                <h2 class="section-title">
+                    <span class="section-icon">⚡</span>
+                    Features & Functionality
+                </h2>
+                
+                <div class="accordion-group">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">What integrations are available?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>We offer 200+ native integrations with popular tools including:</p>
+                                <ul>
+                                    <li>CRM: Salesforce, HubSpot, Pipedrive</li>
+                                    <li>Communication: Slack, Microsoft Teams, Discord</li>
+                                    <li>Marketing: Mailchimp, SendGrid, Klaviyo</li>
+                                    <li>Analytics: Google Analytics, Mixpanel</li>
+                                    <li>Development: GitHub, Jira, Linear</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Is there an API available?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Yes! We provide a REST API with comprehensive documentation. The API supports all major operations and is available on Professional and Enterprise plans. You can access API documentation in your dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Can I customize the platform?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Absolutely! You can customize almost every aspect of the platform including themes, workflows, dashboards, and notifications. Enterprise customers also get access to custom branding and white-label options.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <section class="accordion-section" data-category="support">
+                <h2 class="section-title">
+                    <span class="section-icon">🛟</span>
+                    Support & Help
+                </h2>
+                
+                <div class="accordion-group">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">How can I contact support?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>You can reach our support team through multiple channels:</p>
+                                <ul>
+                                    <li>Email: support@example.com (24h response)</li>
+                                    <li>Live Chat: Available in your dashboard</li>
+                                    <li>Phone: Available for Enterprise customers</li>
+                                    <li>Knowledge Base: help.example.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false">
+                            <span class="trigger-text">Do you offer training or onboarding?</span>
+                            <span class="trigger-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="content-inner">
+                                <p>Yes! We offer comprehensive onboarding for all customers, including video tutorials, webinars, and documentation. Enterprise customers receive personalized onboarding with a dedicated success manager.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results hidden" id="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>No results found</h3>
+            <p>Try adjusting your search terms or browse the categories above.</p>
+        </div>
+
+        <!-- Contact CTA -->
+        <section class="contact-cta">
+            <div class="cta-content">
+                <h2>Still have questions?</h2>
+                <p>Can't find the answer you're looking for? Our friendly support team is here to help.</p>
+                <a href="#" class="btn btn-primary">Contact Support</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

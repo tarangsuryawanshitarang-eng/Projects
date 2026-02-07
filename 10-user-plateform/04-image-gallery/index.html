@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Filterable Image Gallery with Lightbox - A responsive gallery with category filters and full-screen modal viewer">
+    <title>Image Gallery | 10 User Interfaces</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../shared/variables.css">
+    <link rel="stylesheet" href="../shared/reset.css">
+    <link rel="stylesheet" href="../shared/shared.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="gallery-page">
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+
+        <!-- Header -->
+        <header class="gallery-header">
+            <span class="badge badge-primary">🖼️ Gallery</span>
+            <h1 class="gallery-title">Image Gallery</h1>
+            <p class="gallery-subtitle">
+                Explore our collection of stunning images. Use the filters to browse by category.
+            </p>
+        </header>
+
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <div class="filter-buttons" role="tablist" aria-label="Filter images by category">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+                    <span class="filter-icon">✨</span>
+                    All
+                    <span class="filter-count">12</span>
+                </button>
+                <button class="filter-btn" data-filter="nature" role="tab" aria-selected="false">
+                    <span class="filter-icon">🌿</span>
+                    Nature
+                    <span class="filter-count">4</span>
+                </button>
+                <button class="filter-btn" data-filter="architecture" role="tab" aria-selected="false">
+                    <span class="filter-icon">🏛️</span>
+                    Architecture
+                    <span class="filter-count">4</span>
+                </button>
+                <button class="filter-btn" data-filter="people" role="tab" aria-selected="false">
+                    <span class="filter-icon">👥</span>
+                    People
+                    <span class="filter-count">4</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <section class="gallery-grid" id="gallery-grid">
+            <!-- Nature Images -->
+            <article class="gallery-item" data-category="nature" data-index="0">
+                <img src="https://picsum.photos/600/400?random=1" alt="Mountain landscape at sunset" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Mountain Sunset</h3>
+                    <p>Nature</p>
+                    <button class="view-btn" aria-label="View Mountain Sunset">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="architecture" data-index="1">
+                <img src="https://picsum.photos/600/400?random=2" alt="Modern city skyline" loading="lazy">
+                <div class="item-overlay">
+                    <h3>City Skyline</h3>
+                    <p>Architecture</p>
+                    <button class="view-btn" aria-label="View City Skyline">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="people" data-index="2">
+                <img src="https://picsum.photos/600/400?random=3" alt="People enjoying outdoor activities" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Outdoor Fun</h3>
+                    <p>People</p>
+                    <button class="view-btn" aria-label="View Outdoor Fun">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="nature" data-index="3">
+                <img src="https://picsum.photos/600/400?random=4" alt="Peaceful forest trail" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Forest Trail</h3>
+                    <p>Nature</p>
+                    <button class="view-btn" aria-label="View Forest Trail">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="architecture" data-index="4">
+                <img src="https://picsum.photos/600/400?random=5" alt="Historic building facade" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Historic Facade</h3>
+                    <p>Architecture</p>
+                    <button class="view-btn" aria-label="View Historic Facade">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="people" data-index="5">
+                <img src="https://picsum.photos/600/400?random=6" alt="Street photography scene" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Street Life</h3>
+                    <p>People</p>
+                    <button class="view-btn" aria-label="View Street Life">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="nature" data-index="6">
+                <img src="https://picsum.photos/600/400?random=7" alt="Ocean waves at beach" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Ocean Waves</h3>
+                    <p>Nature</p>
+                    <button class="view-btn" aria-label="View Ocean Waves">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="architecture" data-index="7">
+                <img src="https://picsum.photos/600/400?random=8" alt="Modern glass building" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Glass Tower</h3>
+                    <p>Architecture</p>
+                    <button class="view-btn" aria-label="View Glass Tower">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="people" data-index="8">
+                <img src="https://picsum.photos/600/400?random=9" alt="Group of friends laughing" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Friends Together</h3>
+                    <p>People</p>
+                    <button class="view-btn" aria-label="View Friends Together">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="nature" data-index="9">
+                <img src="https://picsum.photos/600/400?random=10" alt="Autumn leaves in park" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Autumn Colors</h3>
+                    <p>Nature</p>
+                    <button class="view-btn" aria-label="View Autumn Colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="architecture" data-index="10">
+                <img src="https://picsum.photos/600/400?random=11" alt="Bridge at night" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Night Bridge</h3>
+                    <p>Architecture</p>
+                    <button class="view-btn" aria-label="View Night Bridge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <article class="gallery-item" data-category="people" data-index="11">
+                <img src="https://picsum.photos/600/400?random=12" alt="Artist at work" loading="lazy">
+                <div class="item-overlay">
+                    <h3>Creative Work</h3>
+                    <p>People</p>
+                    <button class="view-btn" aria-label="View Creative Work">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <div class="lightbox-backdrop"></div>
+            <div class="lightbox-content">
+                <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+                
+                <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous image">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                
+                <div class="lightbox-image-container">
+                    <img src="" alt="" id="lightbox-image">
+                    <div class="lightbox-loader">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                
+                <button class="lightbox-nav next" id="lightbox-next" aria-label="Next image">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+                
+                <div class="lightbox-info">
+                    <h3 id="lightbox-title">Image Title</h3>
+                    <p id="lightbox-counter">1 of 12</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="gallery-footer">
+            <p>Use <kbd>←</kbd> <kbd>→</kbd> to navigate • <kbd>ESC</kbd> to close</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
