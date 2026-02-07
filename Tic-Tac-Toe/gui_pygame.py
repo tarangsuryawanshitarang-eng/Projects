@@ -1,196 +1,277 @@
-"""Pygame GUI for Tic Tac Toe."""
+"""Advanced Pygame GUI for Tic Tac Toe with animations and effects."""
 
 import pygame
 import sys
+import math
+import random
 
 from game import TicTacToe
 from ai import EasyAI, MediumAI, HardAI
 
-# Initialize
-pygame.init()
-
 # Constants
-WIDTH, HEIGHT = 600, 700
+WIDTH, HEIGHT = 600, 750
 BOARD_SIZE = 450
 CELL_SIZE = BOARD_SIZE // 3
 BOARD_OFFSET_X = (WIDTH - BOARD_SIZE) // 2
-BOARD_OFFSET_Y = 150
+BOARD_OFFSET_Y = 180
 
 # Colors
 BG_COLOR = (26, 26, 46)
+BORDER_COLOR = (22, 33, 62)
 LINE_COLOR = (108, 99, 255)
 X_COLOR = (0, 217, 255)
 O_COLOR = (255, 107, 107)
 TEXT_COLOR = (224, 224, 224)
 WIN_COLOR = (0, 230, 118)
-BUTTON_COLOR = (108, 99, 255)
-BUTTON_HOVER = (90, 82, 213)
+HINT_COLOR = (78, 79, 115)
+PARTICLE_COLOR = (255, 214, 0)
 
-# Fonts
-try:
-    TITLE_FONT = pygame.font.Font(None, 48)
-    STATUS_FONT = pygame.font.Font(None, 32)
-except Exception:
-    TITLE_FONT = pygame.font.SysFont("arial", 36)
-    STATUS_FONT = pygame.font.SysFont("arial", 24)
+class Particle:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.vx = random.uniform(-5, 5)
+        self.vy = random.uniform(-5, 5)
+        self.lifetime = 1.0
+        self.color = random.choice([PARTICLE_COLOR, WIN_COLOR, X_COLOR, O_COLOR])
+        self.size = random.randint(2, 5)
 
+    def update(self, dt):
+        self.x += self.vx
+        self.y += self.vy
+        self.vy += 0.1  # Gravity
+        self.lifetime -= dt
+        return self.lifetime > 0
+
+    def draw(self, screen):
+        alpha = int(self.lifetime * 255)
+        s = pygame.Surface((self.size*2, self.size*2), pygame.SRCALPHA)
+        pygame.draw.circle(s, (*self.color, alpha), (self.size, self.size), self.size)
+        screen.blit(s, (self.x - self.size, self.y - self.size))
+
+class AnimatedPiece:
+    def __init__(self, row, col, type):
+        self.row = row
+        self.col = col
+        self.type = type
+        self.progress = 0.0
+        self.done = False
+
+    def update(self, dt):
+        if not self.done:
+            self.progress = min(1.0, self.progress + dt * 4)  # 0.25s animation
+            if self.progress >= 1.0:
+                self.done = True
+
+    def draw(self, screen):
+        margin = 35
+        cx = BOARD_OFFSET_X + self.col * CELL_SIZE + CELL_SIZE // 2
+        cy = BOARD_OFFSET_Y + self.row * CELL_SIZE + CELL_SIZE // 2
+        
+        if self.type == 'X':
+            self.draw_x(screen, cx, cy, margin)
+        else:
+            self.draw_o(screen, cx, cy, margin)
+
+    def draw_x(self, screen, cx, cy, margin):
+        half = CELL_SIZE // 2 - margin
+        # First stroke
+        p1 = self.progress * 2
+        if p1 > 1.0: p1 = 1.0
+        if p1 > 0:
+            start = (cx - half, cy - half)
+            end = (cx - half + (half * 2 * p1), cy - half + (half * 2 * p1))
+            pygame.draw.line(screen, X_COLOR, start, end, 8)
+        
+        # Second stroke
+        p2 = (self.progress - 0.5) * 2
+        if p2 > 1.0: p2 = 1.0
+        if p2 > 0:
+            start = (cx + half, cy - half)
+            end = (cx + half - (half * 2 * p2), cy - half + (half * 2 * p2))
+            pygame.draw.line(screen, X_COLOR, start, end, 8)
+
+    def draw_o(self, screen, cx, cy, margin):
+        radius = CELL_SIZE // 2 - margin
+        rect = pygame.Rect(cx - radius, cy - radius, radius * 2, radius * 2)
+        if self.progress > 0:
+            pygame.draw.arc(screen, O_COLOR, rect, 0, self.progress * math.pi * 2, 8)
 
 def draw_board(screen):
-    """Draw the game board lines."""
+    """Draw the game grid."""
+    # Background for board
+    board_rect = pygame.Rect(BOARD_OFFSET_X, BOARD_OFFSET_Y, BOARD_SIZE, BOARD_SIZE)
+    pygame.draw.rect(screen, BORDER_COLOR, board_rect)
+    
+    # Grid lines
     for i in range(1, 3):
         x = BOARD_OFFSET_X + i * CELL_SIZE
-        pygame.draw.line(
-            screen, LINE_COLOR,
-            (x, BOARD_OFFSET_Y),
-            (x, BOARD_OFFSET_Y + BOARD_SIZE), 4
-        )
+        pygame.draw.line(screen, LINE_COLOR, (x, BOARD_OFFSET_Y), (x, BOARD_OFFSET_Y + BOARD_SIZE), 5)
         y = BOARD_OFFSET_Y + i * CELL_SIZE
-        pygame.draw.line(
-            screen, LINE_COLOR,
-            (BOARD_OFFSET_X, y),
-            (BOARD_OFFSET_X + BOARD_SIZE, y), 4
-        )
-
-
-def draw_x(screen, row, col):
-    """Draw an X in the specified cell."""
-    margin = 30
-    x1 = BOARD_OFFSET_X + col * CELL_SIZE + margin
-    y1 = BOARD_OFFSET_Y + row * CELL_SIZE + margin
-    x2 = BOARD_OFFSET_X + (col + 1) * CELL_SIZE - margin
-    y2 = BOARD_OFFSET_Y + (row + 1) * CELL_SIZE - margin
-
-    pygame.draw.line(screen, X_COLOR, (x1, y1), (x2, y2), 6)
-    pygame.draw.line(screen, X_COLOR, (x2, y1), (x1, y2), 6)
-
-
-def draw_o(screen, row, col):
-    """Draw an O in the specified cell."""
-    margin = 30
-    center_x = BOARD_OFFSET_X + col * CELL_SIZE + CELL_SIZE // 2
-    center_y = BOARD_OFFSET_Y + row * CELL_SIZE + CELL_SIZE // 2
-    radius = CELL_SIZE // 2 - margin
-
-    pygame.draw.circle(screen, O_COLOR, (center_x, center_y), radius, 6)
-
-
-def draw_winning_line(screen, winning_combo):
-    """Draw a line through the winning combination."""
-    if not winning_combo or len(winning_combo) != 3:
-        return
-
-    # Convert positions 1-9 to centers
-    centers = []
-    for pos in winning_combo:
-        row = (pos - 1) // 3
-        col = (pos - 1) % 3
-        cx = BOARD_OFFSET_X + col * CELL_SIZE + CELL_SIZE // 2
-        cy = BOARD_OFFSET_Y + row * CELL_SIZE + CELL_SIZE // 2
-        centers.append((cx, cy))
-
-    if len(centers) == 3:
-        pygame.draw.line(screen, WIN_COLOR, centers[0], centers[2], 8)
-
-
-def get_cell_from_mouse(pos):
-    """Convert mouse position to board cell (row, col)."""
-    x, y = pos
-    if (BOARD_OFFSET_X <= x <= BOARD_OFFSET_X + BOARD_SIZE and
-            BOARD_OFFSET_Y <= y <= BOARD_OFFSET_Y + BOARD_SIZE):
-        col = (x - BOARD_OFFSET_X) // CELL_SIZE
-        row = (y - BOARD_OFFSET_Y) // CELL_SIZE
-        return row, col
-    return None
-
+        pygame.draw.line(screen, LINE_COLOR, (BOARD_OFFSET_X, y), (BOARD_OFFSET_X + BOARD_SIZE, y), 5)
 
 def main():
-    """Main Pygame loop."""
+    """Main Pygame logic."""
+    pygame.init()
+    if pygame.mixer.get_init():
+        # Optional: pygame.mixer.music.load("bg_music.mp3")
+        pass
+    
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Tic Tac Toe - Pygame")
+    pygame.display.set_caption("Tic Tac Toe — Premium Edition")
     clock = pygame.time.Clock()
+    
+    try:
+        title_font = pygame.font.Font(None, 64)
+        status_font = pygame.font.Font(None, 36)
+        ui_font = pygame.font.Font(None, 28)
+    except:
+        title_font = pygame.font.SysFont("arial", 48, bold=True)
+        status_font = pygame.font.SysFont("arial", 28)
+        ui_font = pygame.font.SysFont("arial", 22)
 
     game = TicTacToe()
     ai = None
+    ai_choice = "Player"
+    
+    animated_pieces = []
+    particles = []
+    
+    running = True
     ai_turn = False
     ai_delay = 0
-
-    running = True
+    winner_notified = False
 
     while running:
-        # AI turn with delay
-        if ai_turn and ai and not game.game_over:
-            ai_delay -= clock.get_time()
-            if ai_delay <= 0:
-                move = ai.get_move(game)
-                game.make_move(move)
-                ai_turn = False
-
+        dt = clock.tick(60) / 1000.0
+        
+        # --- Handle Input ---
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN and not ai_turn:
-                cell = get_cell_from_mouse(event.pos)
-                if cell:
-                    row, col = cell
+            
+            if event.type == pygame.MOUSEBUTTONDOWN and not game.game_over and not ai_turn:
+                pos = event.pos
+                if (BOARD_OFFSET_X <= pos[0] < BOARD_OFFSET_X + BOARD_SIZE and 
+                    BOARD_OFFSET_Y <= pos[1] < BOARD_OFFSET_Y + BOARD_SIZE):
+                    col = (pos[0] - BOARD_OFFSET_X) // CELL_SIZE
+                    row = (pos[1] - BOARD_OFFSET_Y) // CELL_SIZE
                     position = row * 3 + col + 1
+                    
                     if game.is_valid_move(position):
                         game.make_move(position)
-                        if ai and not game.game_over and game.current_player == 'O':
+                        animated_pieces.append(AnimatedPiece(row, col, 'X'))
+                        if ai and not game.game_over:
                             ai_turn = True
-                            ai_delay = 500
+                            ai_delay = 0.6
+                
+                # Check mode buttons (simple area checks)
+                if pos[1] < 100:
+                    if 20 < pos[0] < 150: 
+                        ai = None; ai_choice = "Player"; game.reset(); animated_pieces = []; winner_notified = False
+                    elif 160 < pos[0] < 290:
+                        ai = EasyAI('O'); ai_choice = "Easy AI"; game.reset(); animated_pieces = []; winner_notified = False
+                    elif 300 < pos[0] < 430:
+                        ai = MediumAI('O'); ai_choice = "Medium AI"; game.reset(); animated_pieces = []; winner_notified = False
+                    elif 440 < pos[0] < 570:
+                        ai = HardAI('O'); ai_choice = "Hard AI"; game.reset(); animated_pieces = []; winner_notified = False
 
-            # New Game on N key
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_n:
-                game.reset()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_n:
+                    game.reset()
+                    animated_pieces = []
+                    particles = []
+                    ai_turn = False
+                    winner_notified = False
+
+        # --- AI Strategy ---
+        if ai_turn and not game.game_over:
+            ai_delay -= dt
+            if ai_delay <= 0:
+                move = ai.get_move(game)
+                row, col = (move - 1) // 3, (move - 1) % 3
+                game.make_move(move)
+                animated_pieces.append(AnimatedPiece(row, col, 'O'))
                 ai_turn = False
 
-        # Draw
+        # --- Update Effects ---
+        for p in animated_pieces:
+            p.update(dt)
+            
+        particles = [p for p in particles if p.update(dt)]
+        
+        if game.game_over and game.winner and not winner_notified:
+            # Spawn fireworks
+            for _ in range(50):
+                particles.append(Particle(WIDTH // 2, HEIGHT // 2))
+            winner_notified = True
+
+        # --- Draw Everything ---
         screen.fill(BG_COLOR)
+        
+        # Draw Mode Selector
+        modes = ["PvP", "vs Easy", "vs Medium", "vs Hard"]
+        for i, m in enumerate(modes):
+            col = X_COLOR if (i==0 and ai is None) or (i==1 and isinstance(ai, EasyAI)) or \
+                           (i==2 and isinstance(ai, MediumAI)) or (i==3 and isinstance(ai, HardAI)) else TEXT_COLOR
+            btn_rect = pygame.Rect(20 + i*140, 40, 130, 40)
+            pygame.draw.rect(screen, col, btn_rect, 2, 5)
+            txt = ui_font.render(m, True, col)
+            screen.blit(txt, (btn_rect.centerx - txt.get_width()//2, btn_rect.centery - txt.get_height()//2))
 
-        title = TITLE_FONT.render("TIC TAC TOE", True, LINE_COLOR)
-        screen.blit(title, (WIDTH // 2 - title.get_width() // 2, 30))
-
+        # Title
+        title_txt = title_font.render("TIC TAC TOE", True, LINE_COLOR)
+        screen.blit(title_txt, (WIDTH // 2 - title_txt.get_width() // 2, 110))
+        
+        # Status
         if game.game_over:
             if game.winner:
-                status_text = f"Player {game.winner} Wins!"
-                status_color = WIN_COLOR
+                s_txt = f"{game.winner} Wins!"
+                s_col = WIN_COLOR
             else:
-                status_text = "It's a Draw!"
-                status_color = (255, 214, 0)
+                s_txt = "Draw!"
+                s_col = PARTICLE_COLOR
         else:
-            status_text = f"Player {game.current_player}'s Turn"
-            status_color = X_COLOR if game.current_player == 'X' else O_COLOR
-
-        status = STATUS_FONT.render(status_text, True, status_color)
-        screen.blit(status, (WIDTH // 2 - status.get_width() // 2, 90))
+            s_txt = f"{game.current_player}'s Turn"
+            s_col = X_COLOR if game.current_player == 'X' else O_COLOR
+        
+        status_txt = status_font.render(s_txt, True, s_col)
+        screen.blit(status_txt, (WIDTH // 2 - status_txt.get_width() // 2, 700))
 
         draw_board(screen)
+        
+        # Hint numbers
+        if not game.game_over:
+            for i in range(3):
+                for j in range(3):
+                    pos = i * 3 + j + 1
+                    if game.board[pos] == ' ':
+                        num_txt = ui_font.render(str(pos), True, HINT_COLOR)
+                        screen.blit(num_txt, (BOARD_OFFSET_X + j * CELL_SIZE + 10, BOARD_OFFSET_Y + i * CELL_SIZE + 10))
 
-        for pos in range(1, 10):
-            val = game.board[pos]
-            if val != ' ':
-                row = (pos - 1) // 3
-                col = (pos - 1) % 3
-                if val == 'X':
-                    draw_x(screen, row, col)
-                else:
-                    draw_o(screen, row, col)
+        # Pieces
+        for p in animated_pieces:
+            p.draw(screen)
 
-        if game.winner:
-            winning_combo = game.get_winning_combo(game.winner)
-            draw_winning_line(screen, winning_combo)
+        # Winning line
+        if game.game_over and game.winner:
+            combo = game.get_winning_combo(game.winner)
+            if combo:
+                c1 = combo[0]
+                c3 = combo[2]
+                p1 = (BOARD_OFFSET_X + ((c1-1)%3) * CELL_SIZE + CELL_SIZE//2, 
+                      BOARD_OFFSET_Y + ((c1-1)//3) * CELL_SIZE + CELL_SIZE//2)
+                p2 = (BOARD_OFFSET_X + ((c3-1)%3) * CELL_SIZE + CELL_SIZE//2, 
+                      BOARD_OFFSET_Y + ((c3-1)//3) * CELL_SIZE + CELL_SIZE//2)
+                pygame.draw.line(screen, WIN_COLOR, p1, p2, 10)
 
-        # New Game hint
-        hint = STATUS_FONT.render("Press N for New Game", True, TEXT_COLOR)
-        screen.blit(hint, (WIDTH // 2 - hint.get_width() // 2, HEIGHT - 40))
+        # Particles
+        for p in particles:
+            p.draw(screen)
 
         pygame.display.flip()
-        clock.tick(60)
 
     pygame.quit()
-    sys.exit()
-
 
 if __name__ == "__main__":
     main()

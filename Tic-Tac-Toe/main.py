@@ -66,6 +66,7 @@ def play_pvp(score_tracker):
     game = TicTacToe()
     settings = load_settings()
     auto_save = settings.get("auto_save_stats", True)
+    sound_enabled = settings.get("sound_enabled", False)
 
     print(colored("\n  👥 Player vs Player Mode", Fore.GREEN + Style.BRIGHT))
     print(colored("  ─────────────────────────\n", Fore.GREEN))
@@ -89,6 +90,8 @@ def play_pvp(score_tracker):
                 continue
 
             game.make_move(move)
+            if sound_enabled:
+                print('\a', end='', flush=True)
 
             if game.game_over and game.winner:
                 winning_combo = game.get_winning_combo(game.winner)
@@ -115,7 +118,6 @@ def play_pvp(score_tracker):
         print()
         again = input(colored("  Play again? (y/n): ", Fore.CYAN)).strip().lower()
         if again != 'y':
-            print(colored("\n  👋 Thanks for playing! Goodbye.\n", Fore.CYAN))
             break
 
 
@@ -125,6 +127,7 @@ def play_pvai(score_tracker):
     settings = load_settings()
     auto_save = settings.get("auto_save_stats", True)
     ai_delay = settings.get("ai_thinking_delay", True)
+    sound_enabled = settings.get("sound_enabled", False)
 
     print(colored("\n  🤖 Player vs AI Mode", Fore.GREEN + Style.BRIGHT))
     print(colored("  ────────────────────────\n", Fore.GREEN))
@@ -193,8 +196,8 @@ def play_pvai(score_tracker):
                 move = ai.get_move(game)
                 game.make_move(move)
 
-                print(colored(f"  🤖 AI plays position {move}", Fore.YELLOW))
-                time.sleep(0.3)
+            if sound_enabled:
+                print('\a', end='', flush=True)
 
             if game.game_over and game.winner:
                 winning_combo = game.get_winning_combo(game.winner)
@@ -228,13 +231,14 @@ def play_pvai(score_tracker):
 
         again = input(colored("  Play again? (y/n): ", Fore.CYAN)).strip().lower()
         if again != 'y':
-            print(colored("\n  👋 Thanks for playing! Goodbye.\n", Fore.CYAN))
             break
 
 
 def play_ai_vs_ai():
     """Watch two AIs play against each other."""
     game = TicTacToe()
+    settings = load_settings()
+    sound_enabled = settings.get("sound_enabled", False)
 
     print(colored("\n  👁️  AI vs AI — Watch Mode", Fore.GREEN + Style.BRIGHT))
     print(colored("  ──────────────────────────\n", Fore.GREEN))
@@ -279,9 +283,9 @@ def play_ai_vs_ai():
 
         move = current_ai.get_move(game)
         game.make_move(move)
-
-        print(colored(f"  ➡️  Plays position {move}", Fore.WHITE))
-        time.sleep(0.3)
+        
+        if sound_enabled:
+            print('\a', end='', flush=True)
 
         if game.game_over and game.winner:
             winning_combo = game.get_winning_combo(game.winner)
@@ -341,9 +345,11 @@ def display_menu():
     print(colored("    │  3. 👁️   AI vs AI (Watch)        │", Fore.WHITE))
     print(colored("    │  4. 🏆  Leaderboard             │", Fore.WHITE))
     print(colored("    │  5. 📊  My Statistics           │", Fore.WHITE))
-    print(colored("    │  6. 📖  How to Play             │", Fore.WHITE))
-    print(colored("    │  7. ⚙️   Settings                 │", Fore.WHITE))
-    print(colored("    │  8. 🚪  Exit                    │", Fore.WHITE))
+    print(colored("    │  6. 🖥️   Launch Tkinter GUI     │", Fore.WHITE))
+    print(colored("    │  7. 🎮  Launch Pygame GUI      │", Fore.WHITE))
+    print(colored("    │  8. 📖  How to Play             │", Fore.WHITE))
+    print(colored("    │  9. ⚙️   Settings                 │", Fore.WHITE))
+    print(colored("    │  0. 🚪  Exit                    │", Fore.WHITE))
     print(colored("    │                                 │", Fore.WHITE))
     print(colored("    └─────────────────────────────────┘\n", Fore.WHITE))
 
@@ -388,7 +394,7 @@ def main():
         display_title()
         display_menu()
 
-        choice = input(colored("    Enter choice (1-8): ", Fore.YELLOW)).strip()
+        choice = input(colored("    Enter choice (0-9): ", Fore.YELLOW)).strip()
 
         if choice == '1':
             play_pvp(score_tracker)
@@ -405,10 +411,28 @@ def main():
                 score_tracker.display_player_stats(name)
             input(colored("  Press Enter to continue...", Fore.YELLOW))
         elif choice == '6':
-            display_how_to_play()
+            try:
+                from gui_tkinter import TicTacToeGUI
+                app = TicTacToeGUI()
+                app.run()
+            except Exception as e:
+                print(colored(f"\n  ❌ Error launching Tkinter GUI: {e}", Fore.RED))
+                time.sleep(2)
         elif choice == '7':
-            display_settings()
+            try:
+                import gui_pygame
+                gui_pygame.main()
+            except ImportError:
+                print(colored("\n  ❌ Pygame not found. Install it with: pip install pygame", Fore.RED))
+                time.sleep(2)
+            except Exception as e:
+                print(colored(f"\n  ❌ Error launching Pygame GUI: {e}", Fore.RED))
+                time.sleep(2)
         elif choice == '8':
+            display_how_to_play()
+        elif choice == '9':
+            display_settings()
+        elif choice == '0':
             print(colored("\n    👋 Thanks for playing Tic Tac Toe!", Fore.CYAN))
             print(colored("    See you next time! 🎮\n", Fore.CYAN))
             break
