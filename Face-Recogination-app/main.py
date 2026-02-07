@@ -5,11 +5,14 @@ CLI entry point.
 
 import argparse
 import sys
-from datetime import datetime, timedelta
 
-import cv2
-import face_recognition
-import numpy as np
+# Early exit for detect command (only needs OpenCV, no face_recognition)
+if len(sys.argv) > 1 and sys.argv[1] == "detect":
+    from modules.face_detector import run_haar_detection_demo
+    run_haar_detection_demo()
+    sys.exit(0)
+
+from datetime import datetime, timedelta
 
 from modules.config_manager import load_config, get_path
 from modules.face_recognizer import load_encodings, recognize_frame
@@ -21,6 +24,8 @@ from modules.liveness import liveness_check_blink
 
 def run_attendance_system(config: dict, liveness_enabled: bool = False) -> None:
     """Main attendance system — recognize faces and log attendance."""
+    import cv2
+    import numpy as np
     encodings_file = config["paths"].get("encodings_file", "data/encodings.pkl")
     known_data = load_encodings(encodings_file)
     if known_data is None:

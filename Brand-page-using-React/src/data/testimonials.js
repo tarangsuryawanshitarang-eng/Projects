@@ -1,0 +1,38 @@
+export const testimonialsData = [
+    {
+        id: 1,
+        quote: "This product completely transformed our workflow. The attention to detail is remarkable and the support team is incredible.",
+        name: "Sarah Johnson",
+        role: "VP of Design",
+        company: "TechCorp",
+        avatar: "https://i.pravatar.cc/100?img=1",
+        rating: 5,
+    },
+    {
+        id: 2,
+        quote: "We've tried many solutions but nothing comes close. The performance gains alone justified the switch within the first week.",
+        name: "Michael Chen",
+        role: "CTO",
+        company: "StartupXYZ",
+        avatar: "https://i.pravatar.cc/100?img=3",
+        rating: 5,
+    },
+    {
+        id: 3,
+        quote: "The design system is phenomenal. It saved our team hundreds of hours and our products have never looked better.",
+        name: "Emily Rodriguez",
+        role: "Lead Designer",
+        company: "DesignStudio",
+        avatar: "https://i.pravatar.cc/100?img=5",
+        rating: 5,
+    },
+    {
+        id: 4,
+        quote: "The best investment we've made this year. User engagement increased by 40% after implementing their solutions.",
+        name: "David Smith",
+        role: "Product Manager",
+        company: "Global Innovations",
+        avatar: "https://i.pravatar.cc/100?img=8",
+        rating: 5,
+    },
+];
