@@ -3,6 +3,14 @@ Face Recognition + Attendance System
 CLI entry point.
 """
 
+import sys
+import os
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 import argparse
 import sys
 
@@ -334,14 +342,15 @@ def cmd_diagnose(args: argparse.Namespace, config: dict) -> None:
         print(f"  Camera: ❌ {e}")
 
     try:
-        import face_recognition
-        print("  face_recognition: ✅ OK")
-    except ImportError as e:
-        print(f"  face_recognition: ❌ {e}")
+        import cv2.face
+        print("  OpenCV face module: OK")
+    except AttributeError as e:
+        print(f"  OpenCV face: Install opencv-contrib-python")
 
     enc_file = config["paths"].get("encodings_file", "data/encodings.pkl")
+    model_file = enc_file.replace(".pkl", "_model.yml") if ".pkl" in enc_file else "data/face_model.yml"
     import os
-    print(f"  Encodings file: {'✅ Exists' if os.path.exists(enc_file) else '⚠️ Not found'}")
+    print(f"  Face model: {'Exists' if os.path.exists(model_file) else 'Not found (register users first)'}")
 
     db_path = config["database"].get("path", "data/attendance.db")
     print(f"  Database: {'✅ Exists' if os.path.exists(db_path) else '⚠️ Not found'}")

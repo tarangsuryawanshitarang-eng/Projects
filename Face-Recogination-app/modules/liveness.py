@@ -2,7 +2,7 @@
 
 import cv2
 from datetime import datetime
-from typing import Callable | None
+from typing import Optional, Callable
 
 # Optional dlib for blink detection - gracefully degrade if not available
 try:

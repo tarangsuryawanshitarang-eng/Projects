@@ -1,6 +1,6 @@
 # Face Recognition + Attendance System
 
-A Python-based Face Recognition and Attendance System using **OpenCV** and **face_recognition** to detect faces from a live webcam, recognize registered individuals, and log attendance with date, time, and status.
+A Python-based Face Recognition and Attendance System using **OpenCV** (Haar Cascade + LBPH) to detect faces from a live webcam, recognize registered individuals, and log attendance with date, time, and status. **No dlib or face_recognition required** — runs on Windows, macOS, and Linux with minimal dependencies.
 
 ## Features
 
@@ -30,13 +30,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**Windows users:** If `dlib` or `face_recognition` fail to install, try:
-```bash
-pip install cmake
-pip install dlib
-# Or use pre-built wheel: pip install dlib-binary
-pip install face-recognition
-```
+**Note:** This project uses OpenCV's built-in LBPH face recognizer — no dlib or face_recognition needed.
 
 ### 2. Register a User
 
@@ -116,11 +110,9 @@ Edit `config.json` to change:
 ## Tech Stack
 
 - **Python 3.8+**
-- **OpenCV** – Camera, image processing
-- **face_recognition** – Face encodings and matching
+- **OpenCV (opencv-contrib-python)** – Camera, face detection (Haar), face recognition (LBPH)
 - **SQLite** – Attendance database
 - **pandas** – Export to CSV/Excel
-- **dlib** (optional) – Liveness detection
 - **Tkinter** – GUI (built-in)
 
 ## Privacy & Security
