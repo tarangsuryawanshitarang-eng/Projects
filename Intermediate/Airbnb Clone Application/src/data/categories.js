@@ -1,0 +1,28 @@
+// 25 Categories matching Airbnb's category bar
+export const categories = [
+  { id: "amazing-views", label: "Amazing views", icon: "MdLandscape" },
+  { id: "beach", label: "Beachfront", icon: "MdBeachAccess" },
+  { id: "cabins", label: "Cabins", icon: "MdCabin" },
+  { id: "castles", label: "Castles", icon: "MdCastle" },
+  { id: "countryside", label: "Countryside", icon: "MdGrass" },
+  { id: "design", label: "Design", icon: "MdDesignServices" },
+  { id: "farms", label: "Farms", icon: "MdAgriculture" },
+  { id: "islands", label: "Islands", icon: "MdSailing" },
+  { id: "lakefront", label: "Lakefront", icon: "MdWater" },
+  { id: "luxe", label: "Luxe", icon: "MdDiamond" },
+  { id: "mansions", label: "Mansions", icon: "MdVilla" },
+  { id: "national-parks", label: "National parks", icon: "MdForest" },
+  { id: "omg", label: "OMG!", icon: "MdRocketLaunch" },
+  { id: "pools", label: "Amazing pools", icon: "MdPool" },
+  { id: "skiing", label: "Skiing", icon: "MdDownhillSkiing" },
+  { id: "surfing", label: "Surfing", icon: "MdSurfing" },
+  { id: "tiny-homes", label: "Tiny homes", icon: "MdHouse" },
+  { id: "trending", label: "Trending", icon: "MdTrendingUp" },
+  { id: "tropical", label: "Tropical", icon: "MdLocalFlorist" },
+  { id: "treehouses", label: "Treehouses", icon: "MdPark" },
+  { id: "vineyards", label: "Vineyards", icon: "MdWineBar" },
+  { id: "caves", label: "Caves", icon: "MdTerrain" },
+  { id: "houseboats", label: "Houseboats", icon: "MdDirectionsBoat" },
+  { id: "towers", label: "Towers", icon: "MdAccountBalance" },
+  { id: "windmills", label: "Windmills", icon: "MdAir" }
+];
