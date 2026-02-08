@@ -128,7 +128,7 @@ def register_new_user(
     user_dir = os.path.join(faces_dir, employee_id)
     os.makedirs(user_dir, exist_ok=True)
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     if not cap.isOpened():
         print("Cannot access webcam.")
         return False
