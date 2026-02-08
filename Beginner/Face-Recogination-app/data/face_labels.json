@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "employee_id": "1",
+      "name": "Tarang",
+      "label": 0
+    },
+    {
+      "employee_id": "01",
+      "name": "Tarang",
+      "label": 1
+    }
+  ]
+}

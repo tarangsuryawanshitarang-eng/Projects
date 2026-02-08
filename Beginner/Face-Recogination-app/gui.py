@@ -40,6 +40,7 @@ class AttendanceSystemGUI:
         self.current_img = None
 
         self.create_widgets()
+        self.refresh_attendance_list()
 
     def create_widgets(self) -> None:
         header = tk.Frame(self.root, bg="#16213e", height=60)
@@ -190,9 +191,11 @@ class AttendanceSystemGUI:
                         if status == "CHECK-IN":
                             self.notifications.append(
                                 (f"Welcome, {r['name']}! Checked In", (0, 255, 0))
+                            )
                         elif status == "CHECK-OUT":
                             self.notifications.append(
                                 (f"Goodbye, {r['name']}! Checked Out", (255, 165, 0))
+                            )
                         self.refresh_attendance_list()
 
             for info in self.recognized_info:
@@ -248,6 +251,8 @@ class AttendanceSystemGUI:
         if self.is_running:
             messagebox.showinfo("Info", "Stop the camera first to register.")
             return
+
+        self.status_bar.config(text="Registration Mode")
 
         win = tk.Toplevel(self.root)
         win.title("Register New User")
