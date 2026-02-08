@@ -1,0 +1,2 @@
+.list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.empty { text-align: center; color: var(--color-text-secondary); padding: 40px 0; }

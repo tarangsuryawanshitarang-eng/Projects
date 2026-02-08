@@ -1,0 +1,4 @@
+.page { padding: 20px; }
+.empty { text-align: center; padding: 40px 0; color: var(--color-text-secondary); }
+.cardWrap { margin: 8px 0; }
+.count { font-weight: normal; color: var(--color-text-secondary); }

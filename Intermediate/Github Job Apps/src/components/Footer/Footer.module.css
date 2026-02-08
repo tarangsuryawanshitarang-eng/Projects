@@ -1,0 +1,2 @@
+.footer { border-top: 1px solid var(--color-border); padding: 16px; background: var(--color-bg-secondary); text-align: center; }
+.inner { max-width: 1100px; margin: 0 auto; }

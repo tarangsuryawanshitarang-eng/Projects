@@ -1,0 +1,8 @@
+.page { padding: 20px; }
+.back { margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--color-border); background: var(--color-bg-primary); cursor: pointer; }
+.grid { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+.left { display: block; }
+.right { display: block; }
+.section { margin-top: 16px; }
+.card { padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg-secondary); }
+.notfound { text-align: center; padding: 40px; }

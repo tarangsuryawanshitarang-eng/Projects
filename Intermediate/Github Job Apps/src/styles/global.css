@@ -1,0 +1,14 @@
+@import url('./variables.css');
+:root {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f7f7fb;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+}
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system; color: var(--color-text-primary); background: #f8f9fa; }
+a { color: inherit; }
+:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+/* Theme variables are defined in variables.css */
